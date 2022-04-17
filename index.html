@@ -401,8 +401,7 @@
             */
 
             const anio = 30;
-            const mes = anio/30;
-            const dia = anio/365;
+            const meses = anio/30;
 
             // tierra
             m1=mat4.create(); 
@@ -418,21 +417,23 @@
             m2=mat4.create(); 
             mat4.rotate(m1, m1, -((2*36*tiempo)/anio)*Math.PI, [0, 1, 0]); // tierra deja de rotar sobre su eje
             mat4.rotate(m2, m1, -(23*Math.PI)/180, [0, 0, 1]); // enderezo sistema de coord de tierra
-            mat4.rotate(m2, m2, ((2*tiempo)/mes)*Math.PI, [0, 1, 0]);
+            mat4.rotate(m2, m2, ((2*tiempo)/meses)*Math.PI, [0, 1, 0]);
             mat4.translate(m2, m2, [20,0,0]); 
               
             setTransform(luna,m2);  
 
             // apollo
-            m3=mat4.create();
+            m3=mat4.create(); 
             mat4.rotate(m3, m2, Math.PI/4, [0, 0, 1]);
-            mat4.translate(m3,m3,[2,0,0]); 
+            mat4.translate(m3, m3, [2,0,0]); 
             mat4.rotate(m3, m3, -2*Math.PI/4, [0, 0, 1]);
             setTransform(apollo,m3);    
 
             // iss
             m4=mat4.create(); 
-            mat4.translate(m4,m4,[130,0,0]);            
+            mat4.rotate(m4, m1, -((2*tiempo)/meses)*Math.PI, [0, 0, 1]);          
+            mat4.translate(m4, m4, [0,10,0]);  
+            mat4.rotate(m4, m4, (60*Math.PI)/180, [1, 0, 0]);          
             setTransform(iss,m4);  
 
 
